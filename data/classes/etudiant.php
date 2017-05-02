@@ -97,7 +97,7 @@ class etudiant
         elseif(strcasecmp($admission, "BR") == 0)
             $this->admission = "BR";
         else {
-            $this->admission = 0;
+            $this->admission = null;
             echo("Erreur setAdmission");
         }
     }
@@ -126,7 +126,7 @@ class etudiant
         elseif(strcasecmp($filiere, "LIB") == 0)
             $this->filiere = "LIB";
         else {
-            $this->filiere = 0;
+            $this->filiere = null;
             echo("Erreur setFiliere");
 
         }
