@@ -127,7 +127,7 @@ class etudiant
             $this->filiere = "LIB";
         else {
             $this->filiere = null;
-            echo("Erreur setFiliere");
+            echo("Filiere n'a pas été reconnu");
 
         }
     }
