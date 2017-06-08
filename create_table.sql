@@ -2,13 +2,14 @@ CREATE TABLE etudiant (
   nom Varchar(25) NOT NULL,
   prenom Varchar(20) NOT NULL,
   numero INTEGER(5)  NOT NULL,
-  filliere Varchar(3) NOT NULL,
+  filiere Varchar(3) NOT NULL,
   admission Varchar(2) NOT NULL,
   PRIMARY KEY(numero)
 );
 
 
 CREATE TABLE regle (
+  id Varchar(20) NOT NULL,
   label Varchar(3) NOT NULL,
   agregat Varchar(5) NOT NULL,
   cible Varchar(10)  NOT NULL,
@@ -19,15 +20,13 @@ CREATE TABLE regle (
     REFERENCES REGLEMENT(id)
       ON DELETE CASCADE
       ON UPDATE RESTRICT,
-  PRIMARY KEY(label)
+  PRIMARY KEY(id)
 );
 
--- a voir si on met ID et du coup id sera la clé primaire
 
 CREATE TABLE reglement (
   id INTEGER NOT NULL,
   label Varchar(20) NOT NULL,
-  -- regles Varchar(100) NOT NULL, liste ??
   PRIMARY KEY(id)
 );
 
