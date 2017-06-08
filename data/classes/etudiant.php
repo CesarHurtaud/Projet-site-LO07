@@ -127,11 +127,16 @@ class etudiant
             $this->filiere = "LIB";
         else {
             $this->filiere = null;
-            echo("Filiere n'a pas été reconnu");
+            echo("La valeur du champ Filiere n'a pas été reconnu");
 
         }
     }
 
+    function __toString()
+    {
+        $stringEtu = $this->getNom()." ".$this->getPrenom()." - ".$this->getNumero()." - ".$this->getFiliere();
+        return  $stringEtu;
+    }
 
 
 }

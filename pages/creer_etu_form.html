@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Créer un nouveau profil étudiant</title>
+    <link href="../include/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<form method="post" action="creer_etu.php">
+    <div class="form-group">
+        <label for="nom">Nom</label>
+        <input type="text" id="nom" name="nom" placeholder="Entrez votre nom">
+    </div>
+    <div class="form-group">
+        <label for="prenom">Prenom</label>
+        <input type="text" id="prenom" name="prenom" placeholder="Entrez votre prénom">
+    </div>
+    <div class="form-group">
+        <label for="numero">Numéro étudiant</label>
+        <input type="number" id="numero" name="numero" placeholder="Entrez votre numéro étudiant">
+    </div>
+    <div class="form-group">
+        <label for="filiere">Filiere</label>
+        <input list="filieres" id="filiere" name="filiere">
+        <small id="filiereHelp" class="form-text text-muted">Choisissez "?" si vous n'avez pas de filière.</small>
+        <datalist id="filieres">
+            <option value="?"></option>
+            <option value="MPL"></option>
+            <option value="MSI"></option>
+            <option value="MRI"></option>
+            <option value="LIB"></option>
+        </datalist>
+    </div>
+    <div class="form-group">
+        <label for="admission">Admission</label>
+        <input list="admissions" id="admission" name="admission">
+        <small id="admissionHelp"class="form-text text-muted">Sélectionnez si vous avez été admis en Tronc Commun ou en Branche.</small>
+        <datalist id="admissions">
+            <option value="TC">Tronc Commun</option>
+            <option value="BR">Branche</option>
+        </datalist>
+    </div>
+    <div>
+        <input type="submit" value="Créer mon profil">
+    </div>
+</form>
+</body>
+</html>
