@@ -7,7 +7,7 @@ include('../data/classes/etudiant.php');
  * Date: 05/06/17
  * Time: 17:12
  */
-
+/*
 function getEtudiants($conn)
 {
     $sql = 'SELECT * FROM `etudiant`';
@@ -22,8 +22,9 @@ function getEtudiants($conn)
         array_push($return, $fetched);
     }
     return $return;
-}
+}*/
 $etudiants = getEtudiants($conn);
+//TODO : Supprimer historique  de la liste des étudiants possibles.
 ?>
 
 <html>

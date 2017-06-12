@@ -1,4 +1,6 @@
 <?php
+
+include("../classes/etudiant.php");
 /**
  * Created by PhpStorm.
  * User: ganstrich
@@ -28,8 +30,49 @@ try{
     echo'Connexion echouée : '.$e->getMessage();
 }
 
+$insertEtuRequest = $conn->prepare("INSERT INTO etudiant VALUES (:nom, :prenom, :numero,
+                                                                       :filiere, :admission)");
+$selectEtuRequestByNumero = $conn->prepare("SELECT * FROM `etudiant` WHERE numero=?");
+$selectEtuRequest = $conn->prepare("SELECT * FROM `etudiant`");
+function insertEtu(etudiant $etu)
+{
+    $nomNewEtu = $etu->getNom();
+    $prenomNewEtu = $etu->getPrenom();
+    $numeroNewEtu = $etu->getNumero();
+    $filiereNewEtu = $etu->getFiliere();
+    $admissionNewEtu = $etu->getAdmission();
+    global $insertEtuRequest;
+    $insertEtuRequest->bindParam(':nom', $nomNewEtu);
+    $insertEtuRequest->bindParam(':prenom', $prenomNewEtu);
+    $insertEtuRequest->bindParam(':numero', $numeroNewEtu);
+    $insertEtuRequest->bindParam(':filiere', $filiereNewEtu);
+    $insertEtuRequest->bindParam(':admission', $admissionNewEtu);
 
+    $insertEtuRequest->execute();
+}
+//TODO TEST this !!
+function getEtuByNumero($numero){
+    global $selectEtuRequestByNumero;
+    $selectEtuRequestByNumero->execute(array($numero));
+    $fetched = $selectEtuRequestByNumero->fetch(PDO::FETCH_ASSOC);
+    $result = new etudiant($fetched['numero'], $fetched['nom'], $fetched['prenom'], $fetched['admission'],
+        $fetched['filiere']);
+    return result;
+    /*$numero=$fetched['numero'];
+    $nom=$fetched['nom'];
+    $prenom=$fetched['prenom'];
+    $admission=$fetched['admission'];
+    $filiere=$fetched['filiere'];
+    $result = new etudiant($numero, $nom, $prenom, $admission, $filiere);
+    return $result;*/
+}
 
+function getEtudiants(){
+    global $selectEtuRequest;
+    $selectEtuRequest->execute();
+    $result = $selectEtuRequest->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+}
 
 
 ?>
