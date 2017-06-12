@@ -36,17 +36,17 @@ $selectEtuRequestByNumero = $conn->prepare("SELECT * FROM `etudiant` WHERE numer
 $selectEtuRequest = $conn->prepare("SELECT * FROM `etudiant`");
 function insertEtu(etudiant $etu)
 {
-    $nomNewEtu = $etu->getNom();
+    /*$nomNewEtu = $etu->getNom();
     $prenomNewEtu = $etu->getPrenom();
     $numeroNewEtu = $etu->getNumero();
     $filiereNewEtu = $etu->getFiliere();
-    $admissionNewEtu = $etu->getAdmission();
+    $admissionNewEtu = $etu->getAdmission();*/
     global $insertEtuRequest;
-    $insertEtuRequest->bindParam(':nom', $nomNewEtu);
-    $insertEtuRequest->bindParam(':prenom', $prenomNewEtu);
-    $insertEtuRequest->bindParam(':numero', $numeroNewEtu);
-    $insertEtuRequest->bindParam(':filiere', $filiereNewEtu);
-    $insertEtuRequest->bindParam(':admission', $admissionNewEtu);
+    $insertEtuRequest->bindParam(':nom', $etu->getNom());
+    $insertEtuRequest->bindParam(':prenom', $etu->getPrenom());
+    $insertEtuRequest->bindParam(':numero', $etu->getNumero());
+    $insertEtuRequest->bindParam(':filiere', $etu->getFiliere());
+    $insertEtuRequest->bindParam(':admission', $etu->getAdmission());
 
     $insertEtuRequest->execute();
 }
@@ -57,14 +57,7 @@ function getEtuByNumero($numero){
     $fetched = $selectEtuRequestByNumero->fetch(PDO::FETCH_ASSOC);
     $result = new etudiant($fetched['numero'], $fetched['nom'], $fetched['prenom'], $fetched['admission'],
         $fetched['filiere']);
-    return result;
-    /*$numero=$fetched['numero'];
-    $nom=$fetched['nom'];
-    $prenom=$fetched['prenom'];
-    $admission=$fetched['admission'];
-    $filiere=$fetched['filiere'];
-    $result = new etudiant($numero, $nom, $prenom, $admission, $filiere);
-    return $result;*/
+    return $result;
 }
 
 function getEtudiants(){
