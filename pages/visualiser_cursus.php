@@ -1,17 +1,18 @@
 <?php
 
-include 'db_connexion.php';
+include("../data/sql/db_init.php");
 
 $etu = $_POST['numero'];
 $lab = $_POST['label'];
 
-var_dump($lab,$etu);
+var_dump($lab, $etu);
 
-function visualiser() {
+function visualiser()
+{
 
-    global $conn, $dsn;
+    global $conn;
 
-    $req = "select * from elementcursus e,cursus c where c.id = e.idCursus ";
+    $req = "SELECT * FROM elementcursus e,cursus c WHERE c.id = e.idCursus ";
     $reponse = $conn->query($req);
     $tab_res = $reponse->fetchAll(PDO::FETCH_ASSOC);
 
@@ -19,7 +20,7 @@ function visualiser() {
     foreach ($tab_res as $un_res) {
 
         echo "<tr><th>" . implode('</th><th>', array_keys($un_res)) . "</th></tr>";
-        $i++;
+        $i++; //????
 
         echo "<tr><td>" . implode('</td><td>', $un_res) . "</td></tr>";
     }

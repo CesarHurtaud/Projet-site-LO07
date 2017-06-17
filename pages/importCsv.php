@@ -1,6 +1,6 @@
 <?php
 
-include 'db_connexion.php';
+include("../data/sql/db_init.php");
 
 $fichier = $_FILES['fichier']['tmp_name'];
 //var_dump($fichier);
@@ -19,29 +19,30 @@ if (($handle = fopen($fichier, "r")) !== FALSE) {
         //print_r($info);
         $etu[] = $info[1];
     }
-    
+
     $elemCursus = array();
     foreach ($csv_lines as $key => $value) {
         $data = preg_split("/[\s;]+/", $value);
-        
-        if ( strcasecmp($data[0], "EL") == 0) {
+
+        if (strcasecmp($data[0], "EL") == 0) {
             $elemCursus[] = $data;
-        }   
+        }
     }
-    
-    function insertElemCursus($conn, $elemCursus) {
-        
-        
+
+    function insertElemCursus($conn, $elemCursus)
+    {
+
+
         foreach ($elemCursus as $value) {
             $insertElemCursus = $conn->prepare("INSERT INTO elementcursus VALUES (:id, :num_semestre, :label_semestre, :sigle, :categorie, :affectation, :utt, :profil, :credit, :resultat, :idCursus)");
 
-            $req = "select count(id) from elementcursus";
+            $req = "SELECT count(id) FROM elementcursus";
             $result = $conn->query($req);
             $res = $result->fetch(PDO::FETCH_NUM);
             $id = intval($res[0]);
             //var_dump ($int);
 
-            $idNewElem = $id+1;
+            $idNewElem = $id + 1;
             //echo "$idNewElem</br>";
             $numSemNewElem = $value[1];
             $semLabelNewElem = $value[2];
@@ -69,11 +70,11 @@ if (($handle = fopen($fichier, "r")) !== FALSE) {
             $insertElemCursus->execute();
         }
     }
-     
-    
 
-    function insertEtuBis($conn, $etu) {
-  
+
+    function insertEtuBis($conn, $etu)
+    {
+
         $insertEtuRequest = $conn->prepare("INSERT INTO etudiant VALUES (:nom, :prenom, :numero, :filiere, :admission)");
 
         $nomNewEtu = $etu[1];
@@ -87,15 +88,16 @@ if (($handle = fopen($fichier, "r")) !== FALSE) {
         $insertEtuRequest->bindParam(':numero', $numeroNewEtu);
         $insertEtuRequest->bindParam(':filiere', $filiereNewEtu);
         $insertEtuRequest->bindParam(':admission', $admissionNewEtu);
-        
+
         $insertEtuRequest->execute();
     }
-    
-    function insertCursus($conn, $etu) {
+
+    function insertCursus($conn, $etu)
+    {
 
         $insertCursusRequest = $conn->prepare("INSERT INTO cursus VALUES (:id, :label, :numeroEtu)");
 
-        $req = "select count(id) from cursus";
+        $req = "SELECT count(id) FROM cursus";
         $result = $conn->query($req);
         $res = $result->fetch(PDO::FETCH_NUM);
         $id = intval($res[0]);
@@ -103,11 +105,11 @@ if (($handle = fopen($fichier, "r")) !== FALSE) {
         $idNewCursus = $id + 1;
         $labelNewCursus = "cursus" . ($id + 1);
         $numEtuNewCursus = $etu[0];
-        
+
         $insertCursusRequest->bindParam(':id', $idNewCursus);
         $insertCursusRequest->bindParam(':label', $labelNewCursus);
         $insertCursusRequest->bindParam(':numeroEtu', $numEtuNewCursus);
-        
+
         $insertCursusRequest->execute();
     }
 

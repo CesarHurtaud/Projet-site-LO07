@@ -134,7 +134,7 @@ class etudiant
 
     function __toString()
     {
-        $stringEtu = $this->getNom()." ".$this->getPrenom()." - ".$this->getNumero()." - ".$this->getFiliere();
+        $stringEtu = $this->getNumero() . " - " . $this->getNom() . " " . $this->getPrenom() . " " . $this->getFiliere();
         return  $stringEtu;
     }
 

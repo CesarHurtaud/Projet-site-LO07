@@ -23,7 +23,7 @@ function getEtudiants($conn)
     }
     return $return;
 }*/
-$etudiants = getEtudiants($conn);
+$etudiants = getEtudiants();
 //TODO : Supprimer historique  de la liste des étudiants possibles.
 ?>
 
@@ -33,7 +33,7 @@ $etudiants = getEtudiants($conn);
     <link href="../include/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<form method="post" action="creer_cursus.php" id="formChoixEtu" name="formChoixEtu">
+<form method="post" action="creer_cursus_form.php" id="formChoixEtu" name="formChoixEtu">
     <div>
         <label for="listEtu">Choisir un étudiant</label>
         <input list="etudiants" name="listEtu" id="listEtu">
@@ -41,7 +41,7 @@ $etudiants = getEtudiants($conn);
             <?php
             foreach ($etudiants as $etudiant){
             ?>
-            <option value="<?php echo($etudiant);?>">
+            <option value="<?php echo($etudiant); ?>">
                 <?php }?>
         </datalist>
     </div>

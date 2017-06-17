@@ -10,8 +10,8 @@ include("../data/classes/etudiant.php");
 $newEtu = new etudiant($_POST['numero'], $_POST['nom'], $_POST['prenom'],
                         $_POST['admission'], $_POST['filiere']);
 
-insertEtu($conn, $newEtu);
-header('location:choix_etu.php');
+insertEtu($newEtu);
+header('location:choix_etu_cursus.php');
 //echo("Votre profil étudiant a été créé, vous allez etre redirigé");
 exit();
 ?>

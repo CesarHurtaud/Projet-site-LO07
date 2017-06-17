@@ -34,13 +34,10 @@ $insertEtuRequest = $conn->prepare("INSERT INTO etudiant VALUES (:nom, :prenom, 
                                                                        :filiere, :admission)");
 $selectEtuRequestByNumero = $conn->prepare("SELECT * FROM `etudiant` WHERE numero=?");
 $selectEtuRequest = $conn->prepare("SELECT * FROM `etudiant`");
+$getCursusRequest = $conn->prepare("SELECT c.* FROM cursus c WHERE c.numeroEtu=?");
+$getElementsCursusRequest = $conn->prepare("SELECT el.* FROM elementCursus el WHERE el.idCursus=?");
 function insertEtu(etudiant $etu)
 {
-    /*$nomNewEtu = $etu->getNom();
-    $prenomNewEtu = $etu->getPrenom();
-    $numeroNewEtu = $etu->getNumero();
-    $filiereNewEtu = $etu->getFiliere();
-    $admissionNewEtu = $etu->getAdmission();*/
     global $insertEtuRequest;
     $insertEtuRequest->bindParam(':nom', $etu->getNom());
     $insertEtuRequest->bindParam(':prenom', $etu->getPrenom());
@@ -50,7 +47,7 @@ function insertEtu(etudiant $etu)
 
     $insertEtuRequest->execute();
 }
-//TODO TEST this !!
+
 function getEtuByNumero($numero){
     global $selectEtuRequestByNumero;
     $selectEtuRequestByNumero->execute(array($numero));
@@ -60,12 +57,46 @@ function getEtuByNumero($numero){
     return $result;
 }
 
+function getEtuByObject(etudiant $etu)
+{
+    global $selectEtuRequestByNumero;
+    $selectEtuRequestByNumero->execute(array($etu->getNumero()));
+    $fetched = $selectEtuRequestByNumero->fetch(PDO::FETCH_ASSOC);
+    $result = new etudiant($fetched['numero'], $fetched['nom'], $fetched['prenom'], $fetched['admission'],
+        $fetched['filiere']);
+    return $result;
+
+}
+
 function getEtudiants(){
     global $selectEtuRequest;
     $selectEtuRequest->execute();
     $result = $selectEtuRequest->fetchAll(PDO::FETCH_ASSOC);
-    return $result;
+    $etudiants = array();
+    foreach ($result as $etu) {
+        array_push($etudiants, new etudiant($etu['numero'], $etu['nom'], $etu['prenom'], $etu['admission'], $etu['filiere']));
+    }
+    return $etudiants;
 }
 
 
+/*
+
+function getCursusFromDb(etudiant $etu){
+    global $getCursusRequest;
+    $getCursusRequest->execute(array($etu->getNumero()));
+    $fetched = $getCursusRequest->fetch(PDO::FETCH_ASSOC);
+    var_dump($fetched);
+    //TODO : Test et retourner objet cursus
+}
+
+function getElementsCursusFromDb(cursus $cursus){
+    global $getElementsCursusRequest;
+    $getElementsCursusRequest->execute(array($cursus->getId()));
+    $fetched = $getElementsCursusRequest->fetchAll(PDO::FETCH_ASSOC);
+    var_dump($fetched);
+    //TODO : Test et retourner array objets Element cursus
+
+}
+*/
 ?>
