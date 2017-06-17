@@ -17,12 +17,13 @@ CREATE TABLE regle (
   seuil Integer NOT NULL,
   idReglement INTEGER NOT NULL,
   FOREIGN KEY(idReglement)
-  REFERENCES REGLEMENT(id)
-    ON DELETE CASCADE
-    ON UPDATE RESTRICT,
+    REFERENCES REGLEMENT(id)
+      ON DELETE CASCADE
+      ON UPDATE RESTRICT,
   PRIMARY KEY(id)
 );
 
+-- a voir si on met ID et du coup id sera la clé primaire
 
 CREATE TABLE reglement (
   id INTEGER NOT NULL,
@@ -44,9 +45,9 @@ CREATE TABLE elementCursus (
   resultat Varchar(3) NOT NULL,
   idCursus INTEGER NOT NULL,
   FOREIGN KEY(idCursus)
-  REFERENCES CURSUS(id)
-    ON DELETE CASCADE
-    ON UPDATE RESTRICT,
+    REFERENCES CURSUS(id)
+      ON DELETE CASCADE
+      ON UPDATE RESTRICT,
   PRIMARY KEY(id)
 );
 
@@ -55,8 +56,8 @@ CREATE TABLE cursus (
   label Varchar(20) NOT NULL,
   numeroEtu INTEGER(5),
   FOREIGN KEY(numeroEtu)
-  REFERENCES ETUDIANT(numero)
-    ON DELETE CASCADE
-    ON UPDATE RESTRICT,
+    REFERENCES ETUDIANT(numero)
+      ON DELETE CASCADE
+      ON UPDATE RESTRICT,
   PRIMARY KEY(id)
 );
