@@ -67,6 +67,7 @@ $_SESSION['numEtudiant'] = $num;
             instance++;
             addNumSem();
             addLabSem();
+            addSigle();
             addCatUV();
             addAffUV();
             addUvUTT();
@@ -89,6 +90,19 @@ $_SESSION['numEtudiant'] = $num;
             formAddCursus.appendChild(nSemLabel);
             formAddCursus.appendChild(nSem);
             formAddCursus.appendChild(document.createElement('BR'));
+        }
+        function addSigle() {
+            var sigleUV = document.createElement('input');
+            sigleUV.setAttribute('type', 'text');
+            sigleUV.setAttribute('id', 'sigle' + instance);
+            sigleUV.setAttribute('name', 'sigle' + instance);
+            var sigleUVlabel = document.createElement('label');
+            sigleUVlabel.setAttribute('for', 'sigle' + instance);
+            sigleUVlabel.innerHTML = "Le sigle de l'UV :";
+            formAddCursus.appendChild(sigleUVlabel);
+            formAddCursus.appendChild(sigleUV);
+            formAddCursus.appendChild(document.createElement('BR'));
+
         }
         function addLabSem() {
             var lSem = document.createElement('input');
@@ -147,8 +161,8 @@ $_SESSION['numEtudiant'] = $num;
         function addAffUV() {
             var affUV = document.createElement('input');
             affUV.setAttribute('list', 'affectation');
-            affUV.setAttribute('id', 'catUV' + instance);
-            affUV.setAttribute('name', 'catUV' + instance);
+            affUV.setAttribute('id', 'affUV' + instance);
+            affUV.setAttribute('name', 'affUV' + instance);
 
             var DLAffUV = document.createElement('datalist');
             DLAffUV.setAttribute('id', 'affectation');
