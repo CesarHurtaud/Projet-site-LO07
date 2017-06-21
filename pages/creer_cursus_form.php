@@ -19,7 +19,7 @@ $_SESSION['numEtudiant'] = $num;
 
 <html>
 <head>
-    <title>TEST</title>
+    <title>Créer un cursus</title>
 
     <!-- Bootstrap -->
     <link href="../include/bootstrap/css/bootstrap.min.css" rel="stylesheet">

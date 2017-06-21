@@ -40,13 +40,22 @@ class reglement {
         $this->id = $id;
     }
 
-    function __construct($label,$id,$regles) {
+    function __construct($id, $label)
+    {
         //echo "règle construite : $label " </br>\n";
         $this->setLabel($label);
         $this->setId($id);
-        $this->setRegles($regles);
+        //   $this->setRegles($regles);
     }
-    
+
+    function __toString()
+    {
+        $str = $this->getId() . " - " . $this->getLabel();
+
+        return $str;
+    }
+
+
     function __destruct() {
         // détruit l'objet
     }

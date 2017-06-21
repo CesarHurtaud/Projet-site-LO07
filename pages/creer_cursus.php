@@ -13,11 +13,12 @@ ini_set('display_errors', 1);
 session_start();
 $numEtu = $_SESSION['numEtudiant'];
 //echo($numEtu);
-//var_dump($_POST);
+var_dump($_POST);
 $instance = (count($_POST) - 1) / 8;
 //echo($instance);
 $idCursus = insertCursus($conn, $numEtu);
 for ($i = 1; $i <= $instance; $i++) {
+    echo('numSem' . $i);
     insertElemCursus($conn, $_POST['numSem' . $i], $_POST['labSem' . $i], $_POST['sigle' . $i], $_POST['catUV' . $i],
         $_POST['affUV' . $i], $_POST['utt' . $i], $_POST['profil' . $i], $_POST['credit' . $i], $_POST['resultatUV' . $i], $idCursus);
 }
@@ -25,9 +26,16 @@ for ($i = 1; $i <= $instance; $i++) {
 
 function insertElemCursus($conn, $num_semestre, $label_semestre, $sigle, $categorie, $affectation, $utt, $profil, $credits, $resultat, $idCursus)
 {
-    
+
     $insertElemCursusRequest = $conn->prepare("INSERT INTO elementCursus VALUES(:id, :num_semestre, 
 :label_semestre, :sigle, :categorie, :affectation, :utt, :profil, :credits, :resultat, :idCursus)");
+
+    $req = "SELECT count(id) FROM elementCursus";
+    $result = $conn->query($req);
+    $res = $result->fetch(PDO::FETCH_NUM);
+    $id = intval($res[0]);
+    $idNewElem = $id + 1;
+    $insertElemCursusRequest->bindParam('id', $idNewElem);
     $insertElemCursusRequest->bindParam(':num_semestre', $num_semestre);
     $insertElemCursusRequest->bindParam(':label_semestre', $label_semestre);
     $insertElemCursusRequest->bindParam(':sigle', $sigle);
@@ -38,13 +46,6 @@ function insertElemCursus($conn, $num_semestre, $label_semestre, $sigle, $catego
     $insertElemCursusRequest->bindParam(':credits', $credits);
     $insertElemCursusRequest->bindParam(':resultat', $resultat);
     $insertElemCursusRequest->bindParam(':idCursus', $idCursus);
-
-    $req = "SELECT count(id) FROM elementCursus";
-    $result = $conn->query($req);
-    $res = $result->fetch(PDO::FETCH_NUM);
-    $id = intval($res[0]);
-    $idNewElem = $id + 1;
-    $insertElemCursusRequest->bindParam('id', $idNewElem);
 
     $insertElemCursusRequest->execute();
 }

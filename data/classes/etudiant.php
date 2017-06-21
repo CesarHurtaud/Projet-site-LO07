@@ -132,9 +132,14 @@ class etudiant
         }
     }
 
+    public function afficher()
+    {
+        return get_object_vars($this);
+    }
+
     function __toString()
     {
-        $stringEtu = $this->getNumero() . " - " . $this->getNom() . " " . $this->getPrenom() . " " . $this->getFiliere();
+        $stringEtu = $this->getNumero() . " - " . $this->getNom() . " " . $this->getPrenom() . "     " . $this->getFiliere();
         return  $stringEtu;
     }
 

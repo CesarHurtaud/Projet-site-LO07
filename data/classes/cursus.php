@@ -5,13 +5,15 @@ class cursus
 {
 
     private $id;
-    private $etudiant;
+    private $numEtudiant;
+    private $label;
     private $elements;
 
-    public function __construct($id, etudiant $etudiant)
+    public function __construct($id, $label, $numeroEtu)
     {
         $this->setId($id);
-        $this->setEtudiant($etudiant);
+        $this->setEtudiant($numeroEtu);
+        $this->setLabel($label);
         $this->elements = array();
         //$this->elements = $this->addElements();
     }
@@ -40,7 +42,7 @@ class cursus
 
     public function getEtudiant()
     {
-        return $this->etudiant;
+        return $this->numEtudiant;
     }
     //TODO : Aucun objet etudiant n'est créé.
     /*public function setEtudiant(etudiant $etudiant)
@@ -54,10 +56,33 @@ class cursus
         $this->etudiant = $tab_res;
     }*/
 
-    public function setEtudiant(etudiant $etudiant)
+    public function setEtudiant($numEtudiant)
     {
-        $this->etudiant = $etudiant;
+        $this->numEtudiant = $numEtudiant;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getLabel()
+    {
+        return $this->label;
+    }
+
+    /**
+     * @param mixed $label
+     */
+    public function setLabel($label)
+    {
+        $this->label = $label;
+    }
+
+    function __toString()
+    {
+        $stringCursus = $this->getId() . " - " . $this->getLabel() . " - Etudiant n°: " . $this->getEtudiant();
+        return $stringCursus;
+    }
+
 
     /* public function visualiser()
      {

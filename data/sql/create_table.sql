@@ -9,13 +9,13 @@ CREATE TABLE etudiant (
 
 
 CREATE TABLE regle (
-  id Varchar(20) NOT NULL,
-  label Varchar(3) NOT NULL,
-  agregat Varchar(5) NOT NULL,
-  cible Varchar(10)  NOT NULL,
-  affectation FLOAT NOT NULL,
-  seuil Integer NOT NULL,
-  idReglement INTEGER NOT NULL,
+  id          Varchar(20) NOT NULL,
+  label       Varchar(3)  NOT NULL,
+  agregat     Varchar(5)  NOT NULL,
+  cible       Varchar(10) NOT NULL,
+  affectation VARCHAR(20) NOT NULL,
+  seuil       Integer     NOT NULL,
+  idReglement INTEGER     NOT NULL,
   FOREIGN KEY(idReglement)
   REFERENCES REGLEMENT (id)
     ON DELETE CASCADE
